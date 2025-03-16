@@ -1,5 +1,7 @@
 #include "fs_init.h"
-#include "io/io_disk.h"
+#include "io/disk.h"
+#include <stddef.h>
+#include "directory.h"
 //존재하는지 확인
 check_superblock(){
 
@@ -60,7 +62,7 @@ int format_filesystem(Superblock *a,uint32_t disk_size){
     }
     //2-1.루트 디렉터리 생성 및 블록에 쓰기 번호1 
 
-    inode *root_i;
+    Inode *root_i;
     root_i=malloc(sizeof(root_i));
 
     root_i->ctime=1120;
@@ -78,15 +80,16 @@ int format_filesystem(Superblock *a,uint32_t disk_size){
     
 }
 
-int fs_init(){
+int fs_init(Superblock* sBlock,Inode* rootDir,Inode* current_Dir){
     if(check_superblock()){
         //디스크에 superblock이 있다면 파일시스템도 있다
         read_superblock();
     }else{
-        if(!format_filesystem()){
+        if(!format_filesystem(sBlock,512)){
             printf("FS Formating failed");
+            return 1;
         }
-        return 1;
+       
     }
 
     return 0;
