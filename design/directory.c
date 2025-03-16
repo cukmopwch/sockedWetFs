@@ -2,6 +2,6 @@ set_currentDirectory(){
 
 }
 
-change_directory(){
-    
+change_currentDirectory(){
+
 }

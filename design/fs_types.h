@@ -46,7 +46,7 @@
         uint32_t utime;
         //8개 고정 4kb
         uint32_t Datablock;
-    }inode;
+    }Inode;
 
     typedef struct {
         uint32_t inode_id;

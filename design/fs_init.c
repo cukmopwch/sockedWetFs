@@ -78,7 +78,7 @@ int format_filesystem(Superblock *a,uint32_t disk_size){
     
 }
 
-fs_init(){
+int fs_init(){
     if(check_superblock()){
         //디스크에 superblock이 있다면 파일시스템도 있다
         read_superblock();
@@ -86,5 +86,8 @@ fs_init(){
         if(!format_filesystem()){
             printf("FS Formating failed");
         }
+        return 1;
     }
+
+    return 0;
 }
