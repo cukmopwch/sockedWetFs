@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "diskunit.h": "c",
-        "cal": "cpp"
+        "cal": "cpp",
+        "path.h": "c"
     }
 }
