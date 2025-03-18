@@ -1,8 +1,13 @@
 #include "io_disk.h"
 
+
 //쓰기전에 하나로 합친다
 int serialize_metadata(void *buff,const void* data){
 
+}
+
+int disk_read(){
+    
 }
 
 int disk_write(){
