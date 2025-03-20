@@ -1,6 +1,18 @@
 #include "utils/path.h"
 #include "utils/str.h"
 
+/*
+* 이 파일은 디렉터리의 이동과 관련된 파일이다.
+*
+*
+*
+*
+*
+*
+*
+*
+*/
+
 uint32_t find_dirInodeId_fromDirEntry(Inode* subjectDir,char* dirName){
     /*해당하는 디렉터리의 아이노드 id를 얻어온다*/
 

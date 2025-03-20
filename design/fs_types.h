@@ -2,6 +2,7 @@
     #define FS_TYPES_H 1
     #include <stdint.h>
 /*
+* 헤더파일
 * 이 파일은 SockedWet파일시스템을 위한 핵심 구조체를 저장하는 헤더파일이다
 *
 *
@@ -10,7 +11,8 @@
 *
 *
 *
-**/
+*
+*/
 
 
     typedef struct {
