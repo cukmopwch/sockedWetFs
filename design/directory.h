@@ -1,8 +1,11 @@
 #ifndef DIRECTORY_H 
     #define DIRECTORY_H
     
-    set_currentDirectory();
+    uint32_t find_dirInodeId_fromDirEntry(Inode* subjectDir,char* dirName);
 
-    int change_currentDirectory(Inode* currentDir,Inode baseDir,char* path);
+    Inode* find_dirInode_fromBlockGroup(Inode* dirInode,uint32_t dirInodeid);
 
+    Inode get_tagetDirInode(Inode startInode,char** pathList);
+
+    int change_currentDir(Inode* currentDir,Inode startDir,char* path);
 #endif

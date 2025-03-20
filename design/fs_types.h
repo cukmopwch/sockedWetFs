@@ -56,7 +56,7 @@
     typedef struct 
     {   
         //총 5바이트로
-        char name[8];
+        char name[32];
         uint32_t inode_id;
     }Dir_entry;
     

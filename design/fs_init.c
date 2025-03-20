@@ -20,7 +20,8 @@ int get_metadata_size(Superblock *fs,int n){
 uint32_t get_inode_size(){
     uint32_t inode_num=1;
     uint32_t datablock_num=8;
-    uint32_t block_num=(1*1024*1024*1024)/(512*(inode_num+datablock_num));
+    uint32_t totalBlock=(1*1024*1024*1024)/(512*(inode_num+datablock_num));
+    uint32_t block_num=(totalBlock*8)/9;
     uint32_t inode_times=block_num/9;
     return inode_times;
 }
@@ -75,8 +76,8 @@ int format_filesystem(Superblock *a,uint32_t disk_size){
 
     }
 
-    //3.현재 디렉터리 설정
-    set_currentDirectory(root_i->id);
+    //3.초기 현재 디렉터리 설정
+    change_currentDirectory(NULL,*root_i,NULL);
     
 }
 
