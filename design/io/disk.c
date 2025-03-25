@@ -1,12 +1,51 @@
 #include "io_disk.h"
 
-
-//쓰기전에 하나로 합친다
-int serialize_metadata(void *buff,const void* data){
+int bIn(){
 
 }
 
+int bOut(){
+
+}
+
+//쓰기전에 하나로 합친다
+int serialize_data(void *buff,const void* data){
+    /*데이터 직렬화*/
+}
+
+int deserialize_data(){
+    /*데이터 역직렬화*/
+    //오프셋을 임시저장할 변수가 필요하고 배열의 최대는 메시지의 최대다
+    Dir_entry* temp=(Dir_entry*)dirChild;
+    // 요런 느낌이였던거 같은데
+    switch (type)
+    {
+    case 1:
+        /* char이다 */
+        break;
+    case 2:
+        /* Inode다 */
+        break;
+    default:
+        break;
+    }
+}
+
+int read_content_fromInode(){
+    /*아이노드에서 데이터블록을 읽어낸다*/
+    char *buffer=disk_read()
+    //요런 루틴이 필요할거 같은데
+    Datablock dirChild=disk_read(subjectDir->Datablock);
+   
+}
+
 int disk_read(){
+    /*디스크에서 직접적으로 읽어온다.*/
+    int limit;
+    while(limit){
+        //문자인지 구조체인지 판단을 해야지
+        deserialize_data(bIoRead());
+    }
     
 }
 

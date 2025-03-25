@@ -1,5 +1,6 @@
 #include "utils/path.h"
 #include "utils/str.h"
+#include "io/disk.h"
 
 /*
 * 이 파일은 디렉터리의 이동과 관련된 파일이다.
@@ -17,8 +18,7 @@ uint32_t find_dirInodeId_fromDirEntry(Inode* subjectDir,char* dirName){
     /*해당하는 디렉터리의 아이노드 id를 얻어온다*/
 
     //데이터 블록 공간을 디스크에서 읽는다.
-    Datablock dirChild=disk_read(subjectDir->Datablock);
-    Dir_entry* temp=(Dir_entry*)dirChild;
+    Datablock dirChild=read_content_fromInode();
 
 
     for(int i=0;i<500;i++){
