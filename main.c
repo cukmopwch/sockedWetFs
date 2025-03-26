@@ -11,6 +11,8 @@ int main(){
     Superblock sBlock;
     Inode rootDir;
     Inode currentDir; 
+    Fd_table openedfile;
+    
     if(fs_init(&sBlock,&rootDir,&currentDir)){
         printf("failed....");
         return 1;

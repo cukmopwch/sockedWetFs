@@ -78,6 +78,14 @@
         char name[32];
         uint32_t inode_id;
     }Dir_entry;
+
+    typedef struct 
+    {
+        int fd;
+        Inode file;
+        Fd_table * next;//원형 링크로 하자
+    }Fd_table;
+    
     
 
 
