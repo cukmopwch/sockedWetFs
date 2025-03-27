@@ -11,6 +11,14 @@
 *
 */
 
+allocate_fdId(){
+    /*파일 디스크립터 엔트리 번호를 할당한다.*/
+    int byte_index= /8;
+    int bit_index= %8;
+    
+
+}
+
 uint32_t find_InodeId_fromDirEntry(Inode* subjectDir,char* filename){
     /*해당하는 디렉터리의 아이노드 id를 얻어온다*/
 

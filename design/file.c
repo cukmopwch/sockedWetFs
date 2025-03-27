@@ -14,17 +14,17 @@
 *
 */
 
-int add_fd_entry(Inode* file){
+int add_fd_entry(Fd_table* currentFdTail,Inode* file){
     /*파일 디스크립터 테이블에 항목을 추가한다.*/
 
     //파일 디스크립터 테이블에 추가한다.
-    Fd_table *tail=malloc();
-    tail->next=oldTail->next;
-    oldTail->next=tail;
+    Fd_table *newFdTail=malloc();
+    newFdTail->next=currentFdTail->next;
+    currentFdTail->next=newFdTail;
 
     //$$$$까다롭다
-    tail->fd=???;
-    tail->file=targetFile;
+    tail->fd=allocate_fdId();
+    tail->file=file;
     
     return fd
 }
