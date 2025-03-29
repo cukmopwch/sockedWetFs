@@ -11,10 +11,20 @@
 *
 */
 
-allocate_fdId(){
+int allocate_fdId(unsigned char *buffer){
     /*파일 디스크립터 엔트리 번호를 할당한다.*/
-    int byte_index= /8;
-    int bit_index= %8;
+    int byte_index;
+    int bit_index;
+
+    for(int i=0;i<256;i++){
+        byte_index=i/8;
+        bit_index=i%8;
+        if(!(buffer[byte_index] & (1 << bit_index))){
+            //만약 해당 비트가 비어있다면 i값을 fdId로 준다
+            buffer[bit_index] |= (1 << bit_index);
+            return i;
+        }
+    }
     
 
 }

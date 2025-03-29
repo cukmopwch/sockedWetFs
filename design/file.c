@@ -23,10 +23,10 @@ int add_fd_entry(Fd_table* currentFdTail,Inode* file){
     currentFdTail->next=newFdTail;
 
     //$$$$까다롭다
-    tail->fd=allocate_fdId();
-    tail->file=file;
+    newFdTail->fd=allocate_fdId(/*main함수의 fd_bitmap을 넣자*/);
+    newFdTail->file=file;
     
-    return fd
+    return newFdTail->fd;
 }
 
 int remove_fd_entry(){
@@ -45,19 +45,35 @@ Inode get_targetFileInode(Inode* currentDir,char* filename){
 
 
 
-int file_open(char* filename,Fd_table* oldTail){
+int file_open(char* filename,Fd_table* tail){
     /*파일을 연다*/
 
     //아이노드를 찾는다
     Inode targetFile = get_targetFileInode();
-    int fd=add_fd_entry(targetFile);
+
+    //fd를 얻는다.
+    int fd= add_fd_entry(targetFile);
     
 
     return fd;
 }
 
-int file_close(int fd,Fd_table* oldTail){
+void file_close(int fd,Fd_table* head){
     /*파일을 닫는다.*/
+    Fd_table *prev=head;
+    Fd_table *curr;
+
+    //인덱스 0이 아닌 1부터 시작한다.
+    head=head->next;
+    for(head;head->fd==4;head=head->next){
+        if(head->fd==fd){
+            prev->next=head->next;
+            free(head);
+            return;
+        }
+        prev=head;
+    }
+    
 }
 
 
