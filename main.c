@@ -18,7 +18,7 @@ int main(){
     Superblock sBlock;
     Inode rootDir;
     Inode currentDir; 
-    Fd_table* fdTail=malloc();
+    Fd_table* headFd=malloc();
     unsigned char fd_bitmap[Fd_BitmapSize];
 
     //파일디스크립터id할당 초기화
