@@ -14,17 +14,45 @@
 *
 */
 
-int add_fd_entry(Fd_table* currentFdTail,Inode* file){
+int add_fd_entry(Fd_table* head,Inode* file){
     /*파일 디스크립터 테이블에 항목을 추가한다.*/
 
     //파일 디스크립터 테이블에 추가한다.
-    Fd_table *newFdTail=malloc();
-    newFdTail->next=currentFdTail->next;
-    currentFdTail->next=newFdTail;
+    Fd_table *target,*next;
+    Fd_table *newFd=malloc();
 
     //$$$$까다롭다
-    newFdTail->fd=allocate_fdId(/*main함수의 fd_bitmap을 넣자*/);
-    newFdTail->file=file;
+    newFd->file=file;    
+    newFd->fd=allocate_fdId(/*main함수의 fd_bitmap을 넣자*/);
+
+    next=head;
+    if (newFd->fd == 3)
+    {
+        //첫번째 항목이라면
+        newFd->next=temp;
+        head=newFd;
+        return 0;
+    }
+    else if(newFd->fd > 3){
+        int k=3;
+        while ((next)&&(k<newFd->fd))
+        {
+            target=next;
+            next=next->next;
+            k++;
+        }
+        if (next)
+        {
+            //다음 항목이 존재한다면
+            next
+        }
+        
+        
+    }
+    
+
+
+    
     
     return newFdTail->fd;
 }
