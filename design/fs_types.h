@@ -83,8 +83,8 @@
     {
         int fd;
         Inode file;
-        Fd_table * next;//원형 링크로 하자
-    }Fd_table;
+        Fd_entry * next;//원형 링크로 하자
+    }Fd_entry;
     
     
 

@@ -1,6 +1,14 @@
 #include "io_disk.h"
 
-int bIn(){
+#define ATA_DATA_PORT       0x1F0 //디스크 관리용 포트
+
+void read_sector(uint32_t lba, uint8_t *buffer){
+    /*디스크에서 섹터를 통으로 직접 읽어온다*/
+
+    bIn(ATA_DATA_PORT,buffer,)
+}
+
+void bIn(uint16_t port,void* addr,int count){
 
 }
 
