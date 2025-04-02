@@ -1,6 +1,7 @@
 #include "file_ops.h"
 #include "fs_types.h"
 #include <stddef.h>
+#include "./io/disk.h"
 
 /*
 * 이 파일은 파일의 처리와 관련된 파일이다.
@@ -13,6 +14,10 @@
 *
 *
 */
+
+find_inode_fromFdtable(){
+
+}
 
 int add_fd_entry(Fd_table* head,Inode* file){
     /*파일 디스크립터 테이블에 항목을 추가한다.*/
@@ -72,7 +77,14 @@ Inode get_targetFileInode(Inode* currentDir,char* filename){
     return*targetInode;
 }
 
+int file_create(Superblock *sb){
+    /*파일을 만든다.*/
+    inode f;
+    f.id=sb->used_inode;
+    sb->used_inode=(sb->used_inode)+1;
 
+    
+}
 
 
 
@@ -118,21 +130,29 @@ void file_close(int fd,Fd_table* head){
  * 
 */
 
+file_write(int fd,char* buffer){
+    /*파일에 내용를 쓴다*/
+    Inode target=find_inode_fromFdtable(fd);
+    int emptyblcokStart;
+    for(int i=0;i<8;i++){
+        if (target.Datablock[i]==0)
+        {
+            emptyblcokStart=i;
+            break;
+        }
+    }
+    disk_write(target.startDatablock+i,buffer);
+
+}
+
 file_read(int fd){
-    /*문자로 파일을 직접 읽어온다.*/
+    /*파일내용을 직접 읽어온다.*/
 
 }
 
 file_edit(){}
 
 
-int file_create(Superblock *sb){
-    /*파일을 만든다.*/
-    inode f;
-    f.id=sb->used_inode;
-    sb->used_inode=(sb->used_inode)+1;
 
-    
-}
 
 file_remove(){}

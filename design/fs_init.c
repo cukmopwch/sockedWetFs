@@ -11,6 +11,29 @@ read_superblock(){
 
 }
 
+void init_blockgroup(Superblock *a,uint32_t position){
+    /*블록그룹을 설정한다.*/
+    Blockgroup *temp=malloc();
+
+    int inodeNum,blockNum;
+    inodeNum=cal_size();
+    blockNum=a->blockgroupSize-1-inodeNum;
+
+    temp->inode_Bitmap=malloc(sizeof(uint32_t)*inodeNum);
+    temp->block_Bitmap=malloc(sizeof(uint32_t)*blockNum);
+
+    //이부분문제
+    disk_write(temp,position);
+
+    free(temp->inode_Bitmap);
+    free(temp->block_Bitmap);
+    free(temp);
+
+    return;
+}
+
+
+
 
 int get_metadata_size(Superblock *fs,int n){
     fs->metadata_size=fs->superb_size+n*fs->block_size;
@@ -29,51 +52,15 @@ uint32_t get_inode_size(){
 //파일시스템 생성
 int format_filesystem(Superblock *a,uint32_t disk_size){
 
-    //1.기본 설정 및 파티션을 위한 오프셋 완료
-    a->block_size=512;
-    a->disk_size=disk_size;
-    a->superb_size=sizeof(Superblock);
-    a->block_size=sizeof(Blockgroup);
-    //메타데이터 오프셋과 데이터 오프셋을 구한다
-    if(!get_metadata_size(a,8)){
-        printf("failed. Wrong");
-    }
-    /*파일*/
-    a->inode_num=get_inode_size();
-    a->block_num=8*a->inode_num;
+    //1.superblock설정
+    init_superblock();
 
-    //2-0.메타데이터 쓰기 블록0에
-    /****************메타데이터 파티션쓰기******************** */
-    //직렬화해라 메타데이터(슈퍼블록+블록그룹)
-    void* buffer=malloc(a->metadata_size);    
-    if(a->metadata_size>512){
-        //더 할당해야
-        //아니라면 
-    }else{
-        //메타데이터를 위한 블록이 한개일때
-        if(serialize_metadata(buffer,a)){
-            //7개의 블록그룹을 넣는 작업을 해라
-        }else{
-            //뭔가 문제 생김
-        }
-        //직력화된 데이터를 블록 1개에 써라
-        if(!disk_write(buffer,0)){
+    a->Blockgroup_table=malloc(sizeof(uint32_t)*a->blockgroupNum);
 
-        }
-    }
-    //2-1.루트 디렉터리 생성 및 블록에 쓰기 번호1 
-
-    Inode *root_i;
-    root_i=malloc(sizeof(root_i));
-
-    root_i->ctime=1120;
-    root_i->utime=1125;
-    root_i->id=2;
-    root_i->mode=0x4180;
-    root_i->Datablock=2;
-    
-    if(write_inode_to_disk(root_i,1,NULL)){
-
+    //2.블록그룹 개수만큼 쓰기
+    for(int i=0;i<a->blockgroupNum;i++){
+        a->Blockgroup_table[i]=i*(a->blockgroupSize);
+        init_blockgroup(a,a->Blockgroup_table[i]);
     }
 
     //3.초기 현재 디렉터리 설정

@@ -18,36 +18,22 @@
     typedef struct {
         /*슈퍼블록을 정의한다.*/
         
-        //루트 디렉터리의 디스크 번호
-        uint32_t rootDir;
-
-        //디스크 대여
-        uint32_t used_inode;
-
-        uint32_t data_offset;
-
-        //디스크 유닛 및 개수
-        uint32_t disk_size;//gb단위로 8gb면 8
-        uint32_t block_size;
-        uint32_t superb_size;
+        //디스크 대여관리
+        uint32_t freeInode;
 
         //오프셋
-        uint32_t metadata_size;
-        uint32_t block_group_num;
-        uint32_t inode_num;
-        uint32_t block_num;
+        uint32_t blockgroupSize;
+        uint32_t blockgroupNum;
+
 
         //블록그룹 테이블
-        uint32_t Blockgroup_table;
+        uint32_t *Blockgroup_table;
 
     }Superblock;
 
     typedef struct{
-        uint32_t inode_Bitmap;
-        uint32_t block_Bitmap;
-
-        uint32_t inode_table;
-        uint32_t inode_per_group;
+        uint32_t *inode_Bitmap;
+        uint32_t *block_Bitmap;
     }Blockgroup;
 
     typedef struct{
@@ -61,8 +47,9 @@
         uint32_t ctime;
         uint32_t utime;
 
-        //8개 블록의 주소<고정 4kb>
-        uint32_t Datablock;
+        //8개 블록의 주소<고정 4kb> 배열로 바꿔볼까? 
+        uint32_t startDatablock;
+        uint32_t Datablock[8];
     }Inode;
 
     typedef struct {
